@@ -1,5 +1,5 @@
 # Machine Learning Temperature
-A script that utilizes a linear regression model and simple generated data to estimate temperature.
+A script that utilizes a linear regression model and simple generated data to estimate temperature values.
 
 ### Notes
 Data is generated, noise is added to help simulate a real data set. Generated data is used to train the model.
