@@ -5,9 +5,9 @@ from sklearn import model_selection
 from sklearn import linear_model
 
 # populating data
-x = list(range(0, 50))  # celcius
-y = [1.8 * F + 32 + random.randint(-3, 3) for F in x]  # farenheit
-# y = [1.8 * F + 32 for F in x]  # farenheit
+x = list(range(0, 20))  # celsius
+y = [1.8 * F + 32 + random.randint(-3, 3) for F in x]  # fahrenheit
+# y = [1.8 * F + 32 for F in x]  # fahrenheit
 
 print(f'x: {x}')
 print(f'y: {y}')
@@ -36,5 +36,8 @@ x = x.reshape(1, -1)[0]
 m = model.coef_[0][0]
 c = model.intercept_[0]
 y = [m * F + c for F in x]
+
 plt.plot(x, y, '-*b')
+plt.xlabel('celsius')
+plt.ylabel('fahrenheit')
 plt.show()
