@@ -5,7 +5,7 @@ from sklearn import model_selection
 from sklearn import linear_model
 
 # populating data
-x = list(range(0, 20))  # celcius
+x = list(range(0, 50))  # celcius
 y = [1.8 * F + 32 + random.randint(-3, 3) for F in x]  # farenheit
 # y = [1.8 * F + 32 for F in x]  # farenheit
 
@@ -13,7 +13,6 @@ print(f'x: {x}')
 print(f'y: {y}')
 
 plt.plot(x, y, '-*r')
-plt.show()
 
 # required format for machine learning library
 x = np.array(x).reshape(-1, 1)
@@ -30,3 +29,12 @@ print(f'Intercept: : {model.intercept_}')  # this is the c in y = mx + c, should
 
 accuracy = model.score(x_testing, y_testing)
 print(f'Accuracy: {round(accuracy * 100, 2)}')
+
+# displaying new values
+
+x = x.reshape(1, -1)[0]
+m = model.coef_[0][0]
+c = model.intercept_[0]
+y = [m * F + c for F in x]
+plt.plot(x, y, '-*b')
+plt.show()
