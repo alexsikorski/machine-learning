@@ -115,7 +115,7 @@ def main():
                         v.append(v_original)
 
     df = pd.DataFrame.from_dict(pandas_dict)
-    df.to_csv("top-youtube-videos.csv", index=False, encoding='utf-8')
+    df.to_csv("top-youtube-videos.csv", encoding='utf-8')
 
 
 if __name__ == "__main__":
