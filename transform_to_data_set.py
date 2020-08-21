@@ -1,6 +1,24 @@
 import os
 import pickle
 import pandas as pd
+import re
+
+
+def dur_to_sec(duration):
+    ISO_8601 = re.compile(
+        'P'
+        '(?:(?P<years>\d+)Y)?'
+        '(?:(?P<months>\d+)M)?'
+        '(?:(?P<weeks>\d+)W)?'
+        '(?:(?P<days>\d+)D)?'
+        '(?:T'
+        '(?:(?P<hours>\d+)H)?'
+        '(?:(?P<minutes>\d+)M)?'
+        '(?:(?P<seconds>\d+)S)?'
+        ')?')
+    units = list(ISO_8601.match(duration).groups()[-3:])
+    units = list(reversed([int(x) if x != None else 0 for x in units]))
+    return sum([x * 60 ** units.index(x) for x in units])
 
 
 def load_pkl(name):
@@ -41,7 +59,7 @@ def main():
     print("---------------------------------------------")
     print("Number of unique videos:", len(filtered_videos))
 
-    pandas_dict = {'id': [], 'publishedAt': [],  'title': [], 'description': [], 'channelId': [], 'tags': [],
+    pandas_dict = {'id': [], 'publishedAt': [], 'title': [], 'description': [], 'channelId': [], 'tags': [],
                    'views': [], 'comments': [], 'duration': [], 'dimension': [], 'definition': [],
                    'licensedContent': [], 'projection': [], 'likes': [], 'dislikes': []}
 
@@ -74,7 +92,9 @@ def main():
                         v.append(v_original)
                 elif key_original == 'duration':
                     if k == 'duration':
-                        v.append(v_original)
+                        # transform duration into seconds
+                        seconds = dur_to_sec(v_original)
+                        v.append(seconds)
                 elif key_original == 'dimension':
                     if k == 'dimension':
                         v.append(v_original)
