@@ -1,5 +1,5 @@
 # YouTube Data ML
-With use of my own data set of top YouTube videos and a multiple linear regression model, values of future video features are estimated.
+With the use of my own data set of top YouTube videos and a multiple linear regression model, values of future video features are estimated.
 ## What's being used
 - Python 3.8
 - Pandas
