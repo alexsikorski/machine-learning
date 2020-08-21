@@ -1,5 +1,6 @@
 import os
 import pickle
+import pandas as pd
 
 
 def load_pkl(name):
@@ -39,7 +40,16 @@ def main():
 
     print("---------------------------------------------")
     print("Number of unique videos:", len(filtered_videos))
-    # print(filtered_videos[0])
+    print(filtered_videos[0])
+
+    pandas_dict = {'title': ['test123', 'heer', '2313'], 'tags': [['23s', '34e','ss'], ['2fds', '3fd', '34s'], ['2fds', '3fd', '34s']],
+                   'views': [213213123, 342542354, 23523], 'likes': [23423432, 32434, 3], 'dislikes': [324, 3, 4]}
+    #
+    # for video in filtered_videos:
+    #     for (k, v) in video.items():
+
+    df = pd.DataFrame.from_dict(pandas_dict)
+    df.to_csv("top-youtube-videos.csv", encoding='utf-8')
 
 
 if __name__ == "__main__":
