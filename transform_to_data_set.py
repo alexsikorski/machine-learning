@@ -42,11 +42,29 @@ def main():
     print("Number of unique videos:", len(filtered_videos))
     print(filtered_videos[0])
 
-    pandas_dict = {'title': ['test123', 'heer', '2313'], 'tags': [['23s', '34e','ss'], ['2fds', '3fd', '34s'], ['2fds', '3fd', '34s']],
-                   'views': [213213123, 342542354, 23523], 'likes': [23423432, 32434, 3], 'dislikes': [324, 3, 4]}
-    #
-    # for video in filtered_videos:
-    #     for (k, v) in video.items():
+    pandas_dict = {'title': [], 'tags': [],
+                   'views': [], 'likes': [], 'dislikes': []}
+
+    for video in filtered_videos:
+        for (key_original, v_original) in video.items():
+            for (k, v) in pandas_dict.items():
+                if key_original == 'title':
+                    if k == 'title':
+                        v.append(v_original)
+                elif key_original == 'tags':
+                    if k == 'tags':
+                        v.append(v_original)
+                elif key_original == 'views':
+                    if k == 'views':
+                        v.append(v_original)
+                elif key_original == 'likes':
+                    if k == 'likes':
+                        v.append(v_original)
+                elif key_original == 'dislikes':
+                    if k == 'dislikes':
+                        v.append(v_original)
+    print(pandas_dict)
+
 
     df = pd.DataFrame.from_dict(pandas_dict)
     df.to_csv("top-youtube-videos.csv", encoding='utf-8')
