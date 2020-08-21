@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 from sklearn import preprocessing
 from sklearn import model_selection
 from sklearn import linear_model
@@ -19,6 +20,7 @@ def load_data(contain_channelId):
 
 def main():
     # settings
+    global x2, x1
     pd.set_option('display.max_columns', None)
 
     # loading data
@@ -33,6 +35,8 @@ def main():
 
     if contain_channelId:
         y = data.iloc[:, 7]  # views isolated
+        x1 = data.iloc[:, 1]  # comments
+        x2 = data.iloc[:, 5]  # likes
         # converting unique channels to categorical columns
         channel_ids = pd.get_dummies(X['channelId'], drop_first=True)  # dummy variable trap dealt with
 
@@ -43,8 +47,10 @@ def main():
         X = pd.concat([X, channel_ids], axis=1)
     if not contain_channelId:
         y = data.iloc[:, 6]  # as one category is removed, the number of columns is decreased by one
+        x1 = data.iloc[:, 0]  # comments
+        x2 = data.iloc[:, 4]  # likes
 
-    # convert everything to a float
+        # convert everything to a float
     X = X.astype(float)
     y = y.astype(float)
 
@@ -66,6 +72,32 @@ def main():
     # using R^2 score
     score = metrics.r2_score(y_test, y_prediction)
     print(score)
+
+    # refactoring for plotting
+    y_prediction = pd.DataFrame(y_prediction)
+    y_prediction = y_prediction.iloc[:, 0]
+
+    if contain_channelId:
+        x1_test = X_test.iloc[:, 1]  # likes
+        x2_test = X_test.iloc[:, 5]  # comments
+    if not contain_channelId:
+        x1_test = X_test.iloc[:, 0]  # likes
+        x2_test = X_test.iloc[:, 4]  # comments
+
+    # plotting
+    # y axis needs to be views, as we predicted it
+    # x1 comments x2 likes
+    fig = plt.figure(1)
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.scatter(x1, x2, y, color='r', label='Actual Views')
+    ax.scatter(x1_test, x2_test, y_prediction, color='g', label='Predicted Views')
+
+    ax.set_xlabel('Comments')
+    ax.set_ylabel('Likes')
+    ax.set_zlabel('Views')
+    ax.legend()
+    plt.show()
 
 
 if __name__ == "__main__":
