@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from sklearn import preprocessing
 from sklearn import model_selection
 from sklearn import linear_model
@@ -89,10 +88,8 @@ def main():
     # x1 comments x2 likes
     fig = plt.figure(1)
     ax = fig.add_subplot(111, projection='3d')
-
     ax.scatter(x1, x2, y, color='r', label='Actual Views')
     ax.scatter(x1_test, x2_test, y_prediction, color='g', label='Predicted Views')
-
     ax.set_xlabel('Comments')
     ax.set_ylabel('Likes')
     ax.set_zlabel('Views')
