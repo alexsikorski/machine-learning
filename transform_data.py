@@ -28,16 +28,26 @@ def main():
 
                 items = file_data.get("items")
                 for item in items:
-                    video = {"title": None, "tags": None, "views": None, "comments": None, "likes": None,
-                             "dislikes": None}
+                    video = {"id": None, "publishedAt": None, "title": None, "description": None, "channelId": None,
+                             "tags": None, "views": None, "comments": None, "likes": None, "dislikes": None}
                     snippets = item.get("snippet")
                     statistics = item.get("statistics")
+                    video_id = item.get("id")
+                    content_details = item.get("contentDetails")
+
+                    video["id"] = video_id
 
                     for key, value in snippets.items():
                         if key == "title":
                             video["title"] = value
                         elif key == "tags":
                             video["tags"] = value
+                        elif key == "publishedAt":
+                            video["publishedAt"] = value
+                        elif key == "channelId":
+                            video["channelId"] = value
+                        elif key == "description":
+                            video["description"] = value
 
                     for key, value in statistics.items():
                         if key == "viewCount":
@@ -50,9 +60,11 @@ def main():
                             video["dislikes"] = value
 
                     videos.append(video)
+                    print(video)
                 file_count += 1
         if file_count == 4:  # there can only be 4 files as there are only 4 pages retrieved from YouTube API
             save_pkl(videos, subdir + "/")
+
 
 
 if __name__ == "__main__":
