@@ -40,16 +40,28 @@ def main():
 
     print("---------------------------------------------")
     print("Number of unique videos:", len(filtered_videos))
-    print(filtered_videos[0])
 
-    pandas_dict = {'title': [], 'tags': [],
-                   'views': [], 'likes': [], 'dislikes': []}
+    pandas_dict = {'id': [], 'publishedAt': [],  'title': [], 'description': [], 'channelId': [], 'tags': [],
+                   'views': [], 'comments': [], 'duration': [], 'dimension': [], 'definition': [],
+                   'licensedContent': [], 'projection': [], 'likes': [], 'dislikes': []}
 
     for video in filtered_videos:
         for (key_original, v_original) in video.items():
             for (k, v) in pandas_dict.items():
-                if key_original == 'title':
+                if key_original == 'id':
+                    if k == 'id':
+                        v.append(v_original)
+                elif key_original == 'publishedAt':
+                    if k == 'publishedAt':
+                        v.append(v_original)
+                elif key_original == 'title':
                     if k == 'title':
+                        v.append(v_original)
+                elif key_original == 'description':
+                    if k == 'description':
+                        v.append(v_original)
+                elif key_original == 'channelId':
+                    if k == 'channelId':
                         v.append(v_original)
                 elif key_original == 'tags':
                     if k == 'tags':
@@ -57,14 +69,30 @@ def main():
                 elif key_original == 'views':
                     if k == 'views':
                         v.append(v_original)
+                elif key_original == 'comments':
+                    if k == 'comments':
+                        v.append(v_original)
+                elif key_original == 'duration':
+                    if k == 'duration':
+                        v.append(v_original)
+                elif key_original == 'dimension':
+                    if k == 'dimension':
+                        v.append(v_original)
+                elif key_original == 'definition':
+                    if k == 'definition':
+                        v.append(v_original)
+                elif key_original == 'licensedContent':
+                    if k == 'licensedContent':
+                        v.append(v_original)
+                elif key_original == 'projection':
+                    if k == 'projection':
+                        v.append(v_original)
                 elif key_original == 'likes':
                     if k == 'likes':
                         v.append(v_original)
                 elif key_original == 'dislikes':
                     if k == 'dislikes':
                         v.append(v_original)
-    print(pandas_dict)
-
 
     df = pd.DataFrame.from_dict(pandas_dict)
     df.to_csv("top-youtube-videos.csv", encoding='utf-8')
