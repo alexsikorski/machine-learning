@@ -25,5 +25,9 @@ If you would like to utilise channelId's as dummy variables:
 ```python
 data, contain_channelId = load_data(False) # change this to True
 ```
+If you would like to alter the test size and other values:
+```python
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2, random_state=0)
+```
 ## Author
 Alex Sikorski
