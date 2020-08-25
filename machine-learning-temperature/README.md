@@ -1,6 +1,3 @@
-# machine-learning
-A collection of machine learning solutions for specific tasks.
-=======
 # Machine Learning Temperature
 A script that utilizes a linear regression model and simple generated data to estimate temperature values.
 
